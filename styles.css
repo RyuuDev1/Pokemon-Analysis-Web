@@ -110,8 +110,6 @@ body::before {
     z-index: -1;
 }
 
-/* Generate particles using JavaScript or CSS */
-/* Here's a CSS way to create 20 particles */
 body::after {
     content: '';
     display: block;
@@ -144,10 +142,7 @@ body::after {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: center;
-    /* Rest of your container styles */
 }
-
-/* Other styles remain unchanged */
 
 body {
     font-family: 'Arial', sans-serif;
@@ -172,7 +167,4 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: center;
-    /* Rest of your container styles */
 }
-
-/* Other styles remain unchanged */
