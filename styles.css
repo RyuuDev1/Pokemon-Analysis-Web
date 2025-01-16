@@ -1,0 +1,178 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+#pokemonName {
+    padding: 10px;
+    font-size: 16px;
+    width: 200px;
+}
+
+#analyzeButton {
+    padding: 10px 20px;
+    background-color: #ffcb05;
+    border: none;
+    color: #2a75bb;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#analyzeButton:hover {
+    background-color: #e6b800;
+}
+
+#pokemonDetails {
+    margin-top: 20px;
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+}
+
+.pokemon-info {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-left: 20px;
+    flex: 1;
+}
+
+.pokemon-info h3 {
+    color: #2a75bb;
+}
+
+.pokemon-info p {
+    margin: 5px 0;
+}
+
+.pokemon-image {
+    width: 150px;
+    height: auto;
+    margin-right: 20px;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    z-index: -1;
+}
+
+@keyframes move-particle {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #ffcb05;
+    border-radius: 50%;
+    animation: move-particle linear infinite;
+    z-index: -1;
+}
+
+/* Generate particles using JavaScript or CSS */
+/* Here's a CSS way to create 20 particles */
+body::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+body::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        repeating-linear-gradient(0deg, 
+            transparent 0, 
+            transparent 9px, 
+            #ffcb05 10px, 
+            transparent 11px);
+    animation: move-particle 30s infinite linear;
+    opacity: 0.5;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    /* Rest of your container styles */
+}
+
+/* Other styles remain unchanged */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: url('pokemon1.gif') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    animation: move-background 10s linear infinite;
+}
+
+@keyframes move-background {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    /* Rest of your container styles */
+}
+
+/* Other styles remain unchanged */
