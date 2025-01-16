@@ -1,21 +1,79 @@
+/* Reset and Base Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background: #f0f0f0;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
 }
 
+/* Background Animations */
+body {
+    background: url('pokemon1.gif') no-repeat center center fixed;
+    background-size: cover;
+    animation: move-background 10s linear infinite;
+}
+
+@keyframes move-background {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+}
+
+/* Overlay for background effects */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    z-index: -2;  /* Behind the particle layer */
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg, 
+        transparent 0, 
+        transparent 9px, 
+        #ffcb05 10px, 
+        transparent 11px);
+    animation: move-particle 30s infinite linear;
+    opacity: 0.5;
+    z-index: -1;  /* Above the radial gradient but below content */
+}
+
+@keyframes move-particle {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Container Styles */
 .container {
-    background: white;
+    background: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: center;
 }
 
+/* Form Elements */
 #pokemonName {
     padding: 10px;
     font-size: 16px;
@@ -36,6 +94,7 @@ body {
     background-color: #e6b800;
 }
 
+/* Pokemon Details Layout */
 #pokemonDetails {
     margin-top: 20px;
     text-align: left;
@@ -62,109 +121,4 @@ body {
     width: 150px;
     height: auto;
     margin-right: 20px;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
-}
-
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
-    z-index: -1;
-}
-
-@keyframes move-particle {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-.particle {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #ffcb05;
-    border-radius: 50%;
-    animation: move-particle linear infinite;
-    z-index: -1;
-}
-
-body::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-body::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: 
-        repeating-linear-gradient(0deg, 
-            transparent 0, 
-            transparent 9px, 
-            #ffcb05 10px, 
-            transparent 11px);
-    animation: move-particle 30s infinite linear;
-    opacity: 0.5;
-}
-
-.container {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background: url('pokemon1.gif') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    animation: move-background 10s linear infinite;
-}
-
-@keyframes move-background {
-    from { background-position: 0 0; }
-    to { background-position: 100% 100%; }
-}
-
-.container {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    text-align: center;
 }
