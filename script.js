@@ -1,47 +1,86 @@
-document.getElementById('analyzeButton').addEventListener('click', function() {
-    const pokemonName = document.getElementById('pokemonName').value.toLowerCase();
-    fetchPokemon(pokemonName);
-});
+// Constants for DOM elements
+const analyzeButton = document.getElementById('analyzeButton');
+const pokemonNameInput = document.getElementById('pokemonName');
+const pokemonDetails = document.getElementById('pokemonDetails');
 
-function fetchPokemon(name) {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+// Event listener for the analyze button
+analyzeButton.addEventListener('click', fetchPokemon);
+
+// Fetch Pokémon data from the API
+function fetchPokemon() {
+    const pokemonName = pokemonNameInput.value.toLowerCase();
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
         .then(response => response.json())
-        .then(data => {
-            displayPokemonInfo(data);
-        })
-        .catch(error => {
-            document.getElementById('pokemonDetails').innerHTML = '<p>Pokémon not found .</p>';
-        });
+        .then(displayPokemonInfo)
+        .catch(() => displayError());
 }
 
+// Display Pokémon information
 function displayPokemonInfo(pokemon) {
-    const detailsDiv = document.getElementById('pokemonDetails');
-    let html = `
+    const stats = {
+        'attack': 'Attack',
+        'defense': 'Defense',
+        'hp': 'HP',
+        'speed': 'Speed',
+        'special-attack': 'Special Attack',
+        'special-defense': 'Special Defense'
+    };
+
+    const pokemonInfo = `
         <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" class="pokemon-image">
         <div class="pokemon-info">
-            <h3>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
+            <h3>${capitalizeFirstLetter(pokemon.name)}</h3>
             <p><strong>Types:</strong> ${pokemon.types.map(type => type.type.name).join(', ')}</p>
-            <p><strong>Attack:</strong> ${pokemon.stats.find(stat => stat.stat.name === 'attack').base_stat}</p>
-            <p><strong>Defense:</strong> ${pokemon.stats.find(stat => stat.stat.name === 'defense').base_stat}</p>
-            <p><strong>HP:</strong> ${pokemon.stats.find(stat => stat.stat.name === 'hp').base_stat}</p>
-            <p><strong>Speed:</strong> ${pokemon.stats.find(stat => stat.stat.name === 'speed').base_stat}</p>
-            <p><strong>Special Attack:</strong> ${pokemon.stats.find(stat => stat.stat.name === 'special-attack').base_stat}</p>
-            <p><strong>Special Defense:</strong> ${pokemon.stats.find(stat => stat.stat.name === 'special-defense').base_stat}</p>
-            <p><strong>Weaknesses:</strong> 
-            ${pokemon.types.map(type => {
-                const weaknesses = getWeaknesses(type.type.name);
-                return weaknesses.join(', ');
-            }).join(', ')}</p>
+            ${Object.entries(stats).map(([statKey, statName]) => 
+                `<p><strong>${statName}:</strong> ${getStatValue(pokemon.stats, statKey)}</p>`
+            ).join('')}
+            <p><strong>Weaknesses:</strong> ${getWeaknesses(pokemon.types)}</p>
         </div>`;
-    detailsDiv.innerHTML = html;
+
+    pokemonDetails.innerHTML = pokemonInfo;
 }
 
-function getWeaknesses(type) {
-    const typeWeaknesses = {
-        'normal': ['fighting'],
-        'fire': ['water', 'ground', 'rock'],
-        'water': ['electric', 'grass'], 'electric': ['ground'], 'grass': ['fire', 'ice', 'poison', 'flying', 'bug'], 'ice': ['fire', 'fighting', 'rock', 'steel'], 'fighting': ['flying', 'psychic', 'fairy'], 'poison': ['ground', 'psychic'], 'ground': ['water', 'grass', 'ice'], 'flying': ['electric', 'ice', 'rock'], 'psychic': ['bug', 'ghost', 'dark'], 'bug': ['flying', 'rock', 'fire'], 'rock': ['water', 'grass', 'fighting', 'ground', 'steel'], 'ghost': ['ghost', 'dark'], 'dragon': ['ice', 'dragon', 'fairy'], 'dark': ['fighting', 'bug', 'fairy'], 'steel': ['fire', 'fighting', 'ground'], 'fairy': ['poison', 'steel']
-        // Add all types here with their weaknesses
-    };
-    return typeWeaknesses[type] || [];
+// Helper function to get a specific stat value
+function getStatValue(stats, statName) {
+    const stat = stats.find(stat => stat.stat.name === statName);
+    return stat ? stat.base_stat : 'N/A';
 }
+
+// Helper function to get weaknesses based on Pokémon types
+function getWeaknesses(types) {
+    return types.map(type => 
+        PokemonWeaknesses[type.type.name].join(', ')
+    ).join(', ');
+}
+
+// Capitalize the first letter of a string
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Display error message when Pokémon is not found
+function displayError() {
+    pokemonDetails.innerHTML = '<p>Pokémon not found.</p>';
+}
+
+// Pokémon type weaknesses - this could be moved to a separate file for better organization
+const PokemonWeaknesses = {
+    'normal': ['fighting'],
+    'fire': ['water', 'ground', 'rock'],
+    'water': ['electric', 'grass'],
+    'electric': ['ground'],
+    'grass': ['fire', 'ice', 'poison', 'flying', 'bug'],
+    'ice': ['fire', 'fighting', 'rock', 'steel'],
+    'fighting': ['flying', 'psychic', 'fairy'],
+    'poison': ['ground', 'psychic'],
+    'ground': ['water', 'grass', 'ice'],
+    'flying': ['electric', 'ice', 'rock'],
+    'psychic': ['bug', 'ghost', 'dark'],
+    'bug': ['flying', 'rock', 'fire'],
+    'rock': ['water', 'grass', 'fighting', 'ground', 'steel'],
+    'ghost': ['ghost', 'dark'],
+    'dragon': ['ice', 'dragon', 'fairy'],
+    'dark': ['fighting', 'bug', 'fairy'],
+    'steel': ['fire', 'fighting', 'ground'],
+    'fairy': ['poison', 'steel']
+};
